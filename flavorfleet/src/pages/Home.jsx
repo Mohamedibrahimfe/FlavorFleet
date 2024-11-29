@@ -1,7 +1,17 @@
+import Footer from "../helpers/Footer";
+import Hero from "../helpers/Hero";
+import HomeDishes from "../helpers/HomeDishes";
+import MenuSection from "../helpers/MenuSection";
+
 export default function Home() {
   return (
     <div>
-      <h1>Home</h1>
+      <Hero />
+      <div className="lg:px-48">
+        <MenuSection />
+        <HomeDishes />
+      </div>
+      <Footer />
     </div>
   );
 }
