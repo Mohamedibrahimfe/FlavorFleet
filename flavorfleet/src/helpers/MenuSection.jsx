@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "./Loading";
 import { setQueryString } from "../redux/searchSlice";
@@ -13,7 +12,9 @@ export default function MenuSection() {
   const getMenu = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_MENU_API}`);
+      const response = await axios.get(
+        "https://www.themealdb.com/api/json/v1/1/categories.php"
+      );
       setMenu(response.data.categories);
       setLoading(false);
     } catch (error) {
