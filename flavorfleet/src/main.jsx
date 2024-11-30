@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
@@ -10,10 +11,7 @@ import Cart from "./helpers/Cart";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
-
 export default function App() {
-  console.log(store.getState());
-
   return (
     <BrowserRouter>
       <Provider store={store}>

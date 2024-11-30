@@ -1,29 +1,45 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/cartSlice";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function HomeDishes() {
+  const query = useSelector((state) => state.search.queryString);
+  const [dishes, setDishes] = useState([]);
+
+  useEffect(() => {
+    getDishes(query);
+  }, [query]);
+
+  const getDishes = async (search) => {
+    try {
+      const url = search
+        ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search.toLowerCase()}`
+        : "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+
+      const response = await axios.get(url);
+
+      // Handle empty results
+      if (!response.data.meals) {
+        setDishes([]);
+        return;
+      }
+
+      // Set fetched meals
+      setDishes(response.data.meals);
+    } catch (error) {
+      console.error("Error fetching dishes:", error.message);
+      setDishes([]); // Reset dishes on error
+    }
+  };
+
   const notifySuccess = () => toast.success("Item added to cart successfully!");
   const notifyDanger = () => toast.error("Item removed.");
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-  const [dishes, setDishes] = useState([]);
-  const getDishes = async () => {
-    try {
-      const response = await axios.get(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s="
-      );
-      setDishes(response.data.meals);
-    } catch (error) {
-      setDishes(error);
-    }
-  };
-  useEffect(() => {
-    getDishes();
-  }, []);
+
   const handleRemoving = (id) => {
     if (!cartItems.some((item) => item.id === id)) return;
     dispatch(removeFromCart({ id }));

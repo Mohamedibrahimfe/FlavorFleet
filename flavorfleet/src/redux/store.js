@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Use localStorage
 import cartReducer from "./cartSlice";
+import searchReducer from "./searchSlice"; // Import the new search slice
 
 // Redux Persist configuration
 const persistConfig = {
@@ -16,6 +17,7 @@ const persistedReducer = persistReducer(persistConfig, cartReducer);
 const store = configureStore({
   reducer: {
     cart: persistedReducer,
+    search: searchReducer, // Add the search reducer
   },
 });
 
