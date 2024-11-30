@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
+import image1 from "../assets/images/header_img-DfvEA7zQ.png";
+import image2 from "../assets/images/pexels-dana-tentis-118658-262959.jpg";
+import image3 from "../assets/images/pexels-robinstickel-70497.jpg";
 export default function Hero() {
   const [index, setIndex] = useState(0);
   const images = [
     {
       id: 0,
-      src: "/images/header_img-DfvEA7zQ.png",
+      src: image1,
     },
     {
       id: 1,
-      src: "/images/pexels-dana-tentis-118658-262959.jpg",
+      src: image2,
     },
     {
       id: 2,
-      src: "/images/pexels-robinstickel-70497.jpg",
+      src: image3,
     },
   ];
   const handleSlider = (id) => {
