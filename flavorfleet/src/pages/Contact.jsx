@@ -1,6 +1,12 @@
+import { Helmet } from "react-helmet";
+
 export default function Contact() {
   return (
     <section className="bg-white dark:bg-gray-900">
+      <Helmet>
+        <meta name="description" content="FlavorFleet Contact Us" />
+        <title>Contact Us</title>
+      </Helmet>
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
           Contact Us
