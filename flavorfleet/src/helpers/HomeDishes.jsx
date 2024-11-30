@@ -12,11 +12,12 @@ export default function HomeDishes() {
     getDishes(query);
   }, [query]);
 
+
   const getDishes = async (search) => {
     try {
       const url = search
-        ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search.toLowerCase()}`
-        : "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+        ? `${import.meta.env.VITE_HOME_DISHES_API}${search}`
+        : `${import.meta.env.VITE_HOME_DISHES_API}`;
 
       const response = await axios.get(url);
 

@@ -13,9 +13,7 @@ export default function MenuSection() {
   const getMenu = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "https://www.themealdb.com/api/json/v1/1/categories.php"
-      );
+      const response = await axios.get(`${import.meta.env.VITE_MENU_API}`);
       setMenu(response.data.categories);
       setLoading(false);
     } catch (error) {
