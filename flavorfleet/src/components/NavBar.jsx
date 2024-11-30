@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
 import SearchComponent from "./SearchComponent";
@@ -12,12 +12,12 @@ export default function NavBar() {
   return (
     <header className="header sticky top-0 z-50 bg-white shadow-md flex items-center justify-between px-5 py-2 md:py-0 py-02">
       <h1 className="w-3/12">
-        <Link href="/#hero">
+        <NavLink to="/">
           {" "}
           <h1 className="font-bold text-2xl lg:text-3xl border-red-500 border-opacity-0 hover:border-opacity-100 text-red-500 duration-200 cursor-pointer">
             FlavorFleet
           </h1>{" "}
-        </Link>
+        </NavLink>
       </h1>
       <nav className="nav font-semibold text-lg">
         <ul
