@@ -4,15 +4,15 @@ export default function Hero() {
   const images = [
     {
       id: 0,
-      src: "../../public/images/header_img-DfvEA7zQ.png",
+      src: "/images/header_img-DfvEA7zQ.png",
     },
     {
       id: 1,
-      src: "../../public/images/pexels-dana-tentis-118658-262959.jpg",
+      src: "/images/pexels-dana-tentis-118658-262959.jpg",
     },
     {
       id: 2,
-      src: "../../public/images/pexels-robinstickel-70497.jpg",
+      src: "/images/pexels-robinstickel-70497.jpg",
     },
   ];
   const handleSlider = (id) => {
@@ -21,7 +21,7 @@ export default function Hero() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((index) => (index + 1) % images.length);
+      // setIndex((index) => (index + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
