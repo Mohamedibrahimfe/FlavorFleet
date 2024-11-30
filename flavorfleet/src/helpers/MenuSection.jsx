@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "./Loading";
+import { setQueryString } from "../redux/searchSlice";
+import { useDispatch } from "react-redux";
+
 export default function MenuSection() {
+  const dispatch = useDispatch();
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +28,11 @@ export default function MenuSection() {
   useEffect(() => {
     getMenu();
   }, []);
-  const filter = () => {};
+  const filter = (category, id) => {
+    // give this item active class
+    dispatch(setQueryString(category));
+    document.getElementById(id).classList.toggle("active");
+  };
   return (
     <section id="menu">
       <h1 className="text-2xl text-center my-4 md:my-10 md:text-4xl lg:text-6xl  ">
@@ -40,18 +48,18 @@ export default function MenuSection() {
           <Loading />
         ) : (
           menu.map((item) => (
-            <Link
-              className="card flex flex-col items-center"
+            <div
+              className="card flex flex-col cursor-pointer items-center hover:scale-105 duration-300"
               key={item.idCategory}
-              onClick={filter}
+              onClick={() => filter(item.strCategory)}
             >
               <img
-                className="w-[150px] h-[150px] rounded-full object-cover"
+                className="w-[120px] h-[120px] rounded-full object-cover"
                 src={item.strCategoryThumb}
                 alt={item.name}
               />
               <h2 className="text-xl my-2">{item.strCategory}</h2>
-            </Link>
+            </div>
           ))
         )}
       </div>
