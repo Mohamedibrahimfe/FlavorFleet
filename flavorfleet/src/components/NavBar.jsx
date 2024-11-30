@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
+import SearchComponent from "./SearchComponent";
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showOriginal, setShowOriginal] = useState(true);
@@ -86,15 +87,16 @@ export default function NavBar() {
               Contact
             </NavLink>
           </li>
+          <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
+            <NavLink className="md:hidden  ">
+              <SearchComponent />
+            </NavLink>
+          </li>
         </ul>
       </nav>
 
       <div className="w-3/12 hidden  md:flex justify-end">
-        <input
-          type="search"
-          placeholder="Search..."
-          className="text-black  h-10 px-4 lg:mx-4 rounded-md cursor-pointer border-2 lg:w-[300px] w-[100px] border-gray-100  duration-200"
-        />
+        <SearchComponent />
         <a href="">
           <svg
             aria-hidden="true"
@@ -104,7 +106,7 @@ export default function NavBar() {
             role="img"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
-            className="svg-inline--fa fa-search fa-w-16 fa-9x h-8 p-1 hover:text-red-500 duration-200"
+            className="svg-inline--fa fa-search fa-w-16 fa-9x h-8 p-1 hover:text-red-500 duration-200 lg:mt-1"
           >
             <path
               fill="currentColor"
@@ -114,7 +116,7 @@ export default function NavBar() {
           </svg>
         </a>
       </div>
-      <NavLink className="relative mt-2" to="/cart">
+      <NavLink className="relative mt-2 lg:-ml-48 lg:mt-0" to="/cart">
         <svg
           aria-hidden="true"
           focusable="false"
