@@ -3,13 +3,23 @@ import { useState } from "react";
 import CartIcon from "./CartIcon";
 import SearchComponent from "./SearchComponent";
 
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 export default function NavBar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showOriginal, setShowOriginal] = useState(true);
   const handleToggle = () => {
     setIsOpen(!isOpen);
     setShowOriginal(!showOriginal);
   };
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => setIsLoggedIn(true),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+  const logOut = () => {
+    googleLogout();
+    setIsLoggedIn(false);
+  }
  
   return (
     <header className="header sticky top-0 z-50 bg-white shadow-md flex items-center justify-between px-5 py-2 md:py-0 py-02">
@@ -91,7 +101,11 @@ export default function NavBar() {
             </NavLink>
           </li>
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
-            <NavLink to={"/signin"}>login</NavLink>
+            {isLoggedIn ? (
+              <NavLink onClick={logOut} to="/logout">Log out </NavLink>
+            ) : (
+              <NavLink to="/login">Login</NavLink>
+            )}
           </li>
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
             <NavLink className="md:hidden  ">

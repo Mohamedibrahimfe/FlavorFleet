@@ -12,14 +12,14 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import Success from "./pages/Success";
 
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Signin from "./pages/Signin";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <GoogleOAuthProvider clientId="865776860201-q3sqsj6rl40m5au11hdl9u5pk9iekffh.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
@@ -30,7 +30,7 @@ export default function App() {
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>
-          </GoogleOAuthProvider>
+        </GoogleOAuthProvider>
       </Provider>
     </BrowserRouter>
   );
