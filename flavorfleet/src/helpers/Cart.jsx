@@ -5,6 +5,7 @@ import {
   removeFromCart,
 } from "../redux/cartSlice";
 import { Helmet } from "react-helmet";
+import { NavLink } from "react-router-dom";
 
 export default function Cart() {
   const { items } = useSelector((state) => state.cart);
@@ -231,12 +232,12 @@ export default function Cart() {
                 </dl>
               </div>
 
-              <a
+              <NavLink
                 href="/success"
                 className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Proceed to Checkout
-              </a>
+              </NavLink>
 
               <div className="flex items-center justify-center gap-2">
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
