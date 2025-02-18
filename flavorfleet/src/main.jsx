@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import Success from "./pages/Success";
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Signin from "./pages/Signin";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="cart" element={<Cart />} />
               <Route path="success" element={<Success />} />
+              <Route path="signin" element={<Signin />} />
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>
