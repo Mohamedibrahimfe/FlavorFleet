@@ -2,6 +2,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
 import SearchComponent from "./SearchComponent";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { hasGrantedAnyScopeGoogle } from '@react-oauth/google';
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showOriginal, setShowOriginal] = useState(true);
@@ -73,6 +76,19 @@ export default function NavBar() {
               to="/cart"
             >
               Cart
+            </NavLink>
+          </li>
+          <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
+            <NavLink to="/signin">
+              { hasGrantedAnyScopeGoogle ? (<GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+              ) :(googleLogout())}
             </NavLink>
           </li>
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">

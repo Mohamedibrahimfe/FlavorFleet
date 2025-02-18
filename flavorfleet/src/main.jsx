@@ -10,28 +10,25 @@ import Cart from "./helpers/Cart";
 
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Success from "./pages/Success";
 
-
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentPage from "./stripe/payment";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export default function App() {
-  const stripePromise = loadStripe("your-publishable-key-here");
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Elements stripe={stripePromise}>
+        <GoogleOAuthProvider clientId="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">
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="contact" element={<Contact />} />
               <Route path="cart" element={<Cart />} />
-              <Route path="/payment" element={<PaymentPage />} />
+              <Route path="success" element={<Success />} />
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>
-        </Elements>
+          </GoogleOAuthProvider>
       </Provider>
     </BrowserRouter>
   );
