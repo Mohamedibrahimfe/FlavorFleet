@@ -18,7 +18,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <GoogleOAuthProvider clientId="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">
+        <GoogleOAuthProvider clientId="865776860201-q3sqsj6rl40m5au11hdl9u5pk9iekffh.apps.googleusercontent.com">
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />

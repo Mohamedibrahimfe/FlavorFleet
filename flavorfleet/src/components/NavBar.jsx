@@ -3,7 +3,7 @@ import { useState } from "react";
 import CartIcon from "./CartIcon";
 import SearchComponent from "./SearchComponent";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
-import { hasGrantedAnyScopeGoogle } from '@react-oauth/google';
+import { hasGrantedAnyScopeGoogle } from "@react-oauth/google";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +12,12 @@ export default function NavBar() {
     setIsOpen(!isOpen);
     setShowOriginal(!showOriginal);
   };
+  const responseMessage = (response) => {
+    console.log(response);
+  }
+  const errorMessage = (error) => {
+    console.log(error);
+  }
   return (
     <header className="header sticky top-0 z-50 bg-white shadow-md flex items-center justify-between px-5 py-2 md:py-0 py-02">
       <h1 className="w-3/12">
@@ -78,19 +84,7 @@ export default function NavBar() {
               Cart
             </NavLink>
           </li>
-          <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
-            <NavLink to="/signin">
-              { hasGrantedAnyScopeGoogle ? (<GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
-              ) :(googleLogout())}
-            </NavLink>
-          </li>
+          
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
             <NavLink
               className={({ isActive }) =>
@@ -150,6 +144,9 @@ export default function NavBar() {
           ></path>
         </svg>
         <CartIcon />
+        <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+          </li>
       </NavLink>
 
       <button
