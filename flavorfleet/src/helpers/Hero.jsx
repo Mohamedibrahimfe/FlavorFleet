@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import image1 from "../assets/images/header_img-DfvEA7zQ.png";
 import image2 from "../assets/images/pexels-dana-tentis-118658-262959.jpg";
 import image3 from "../assets/images/pexels-robinstickel-70497.jpg";
+import Loading from "./Loading"; // Add this import
+
 export default function Hero() {
   const [index, setIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   const images = [
     {
       id: 0,
@@ -18,18 +22,46 @@ export default function Hero() {
       src: image3,
     },
   ];
+
   const handleSlider = (id) => {
     setIndex(id);
   };
 
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  // Preload images effect
+  useEffect(() => {
+    const imagePromises = images.map((image) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = image.src;
+        img.onload = resolve;
+      });
+    });
+
+    Promise.all(imagePromises).then(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
+  // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      // setIndex((index) => (index + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(interval);
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
+
   return (
-    <div className="relative w-full h-[80vh] " id="hero">
+    <div className="relative w-full h-[80vh]" id="hero">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+          <Loading />
+        </div>
+      )}
       <div className="absolute w-full  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-0 text-white flex flex-col gap-6 justify-center items-center md:gap-10  -mt-10">
         <h1 className="text-3xl font-bold w-full md:text-4xl lg:text-8xl ">
           Order your favourite food here
@@ -75,9 +107,9 @@ export default function Hero() {
           key={image.id}
           src={image.src}
           alt={image.id}
-          className={`absolute -z-10 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
-            index === image.id ? "opacity-100" : "opacity-0"
-          }`}
+          onLoad={handleImageLoad}
+          className={`absolute -z-10 w-full h-full object-cover transition-all duration-1000 ease-in-out ${index === image.id ? "opacity-100" : "opacity-0"
+            }`}
         />
       ))}
       <div className="absolute w-full flex justify-center gap-2 bottom-12 peer-[&_label:nth-of-type(1)]/slider1:peer-checked/slider1:opacity-100 peer-[&_label:nth-of-type(1)]/slider1:peer-checked/slider1:w-10 peer-[&_label:nth-of-type(2)]/slider2:peer-checked/slider2:opacity-100 peer-[&_label:nth-of-type(2)]/slider2:peer-checked/slider2:w-10 peer-[&_label:nth-of-type(3)]/slider3:peer-checked/slider3:opacity-100 peer-[&_label:nth-of-type(3)]/slider3:peer-checked/slider3:w-10">
