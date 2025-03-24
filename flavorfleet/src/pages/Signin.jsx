@@ -1,29 +1,16 @@
-import React from "react";
+import { SignIn } from "@clerk/clerk-react";
 
-import { GoogleLogin } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
-
-export default function Signin() {
-  const navigate = useNavigate();
-
-  const responseMessage = (response) => {
-    console.log(response);
-    // Handle the response from Google Login here
-    navigate("/");
-  };
-
-  const errorMessage = (error) => {
-    console.log(error);
-  };
+export default function SigninPage() {
   return (
-    <div>
-      <div className="flex justify-center items-center h-screen *:hover:scale-110">
-        <GoogleLogin
-          onSuccess={responseMessage}
-          onError={errorMessage}
-          size="icon"
-        />
-      </div>
+    <div className="flex justify-center items-center min-h-screen py-12">
+      <SignIn 
+        appearance={{
+          elements: {
+            rootBox: "mx-auto",
+            card: "bg-white shadow-xl rounded-xl",
+          }
+        }}
+      />
     </div>
   );
 }

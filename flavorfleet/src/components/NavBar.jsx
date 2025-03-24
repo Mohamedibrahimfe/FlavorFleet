@@ -4,6 +4,8 @@ import CartIcon from "./CartIcon";
 import SearchComponent from "./SearchComponent";
 
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { UserButton, SignedIn, SignedOut } from "@clerk/clerk-react";
+
 export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -16,9 +18,9 @@ export default function NavBar() {
     googleLogout();
     setIsLoggedIn(false);
   }
- 
+
   return (
-    <header className="header sticky top-0 z-50 bg-white shadow-md flex items-center justify-between px-5 py-2 md:py-0 py-02">
+    <> <header className="header sticky top-0 z-50 bg-white shadow-md flex items-center justify-between px-5 py-2 md:py-0 py-02">
       <h1 className="w-3/12">
         <Link href="/#hero">
           {" "}
@@ -29,11 +31,10 @@ export default function NavBar() {
       </h1>
       <nav className="nav font-semibold text-lg">
         <ul
-          className={`md:flex  items-center flex-col md:flex-row gap-4 ${
-            isOpen
-              ? "absolute z-50 top-16 -mt-1 right-0 bg-slate-100 w-full"
-              : "hidden"
-          }`}
+          className={`md:flex  items-center flex-col md:flex-row gap-4 ${isOpen
+            ? "absolute z-50 top-16 -mt-1 right-0 bg-slate-100 w-full"
+            : "hidden"
+            }`}
         >
           <li className="p-4 active:border-red-500 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
             <a
@@ -83,7 +84,7 @@ export default function NavBar() {
               Cart
             </NavLink>
           </li>
-          
+
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
             <NavLink
               className={({ isActive }) =>
@@ -96,13 +97,7 @@ export default function NavBar() {
               Contact
             </NavLink>
           </li>
-          <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
-            {isLoggedIn ? (
-              <NavLink onClick={logOut} to="/logout">Log out </NavLink>
-            ) : (
-              <NavLink to="/signin">Login</NavLink>
-            )}
-          </li>
+          
           <li className="p-4 border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer">
             <NavLink className="md:hidden  ">
               <SearchComponent />
@@ -114,6 +109,19 @@ export default function NavBar() {
       <div className="w-3/12 hidden  md:flex justify-end">
         <SearchComponent />
       </div>
+      <div className="flex items-center gap-4 mx-auto my-1 md:-mx-20 lg:mx-auto">
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+            <SignedOut>
+              <Link
+                to="/signin"
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Sign in
+              </Link>
+            </SignedOut>
+          </div>
       <NavLink className="relative mt-2 lg:-ml-48 lg:mt-0" to="/cart">
         <svg
           aria-hidden="true"
@@ -132,7 +140,7 @@ export default function NavBar() {
           ></path>
         </svg>
         <CartIcon />
-        
+
       </NavLink>
 
       <button
@@ -194,5 +202,8 @@ export default function NavBar() {
         )}
       </button>
     </header>
+
+
+    </>
   );
 }

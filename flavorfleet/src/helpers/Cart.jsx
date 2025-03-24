@@ -5,9 +5,23 @@ import {
   removeFromCart,
 } from "../redux/cartSlice";
 import { Helmet } from "react-helmet";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { NavLink } from "react-router-dom";
 
 export default function Cart() {
+  return (
+    <>
+      <SignedIn>
+        <CartContent />
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+}
+
+function CartContent() {
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
