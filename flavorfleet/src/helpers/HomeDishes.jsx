@@ -64,8 +64,8 @@ export default function HomeDishes() {
       <h1 className="text-3xl font-bold text-center my-8 lg:text-5xl">
         Our Dishes
       </h1>
-      <hr className="border-2 border-red-500 w-32 mt-2 mx-auto rounded-full" />
-      <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-3 lg:grid-cols-4 relative max-w-7xl mx-auto mt-12">
+      <hr className="border-2 border-red-500 max-w-screen-md mt-2 mx-auto rounded-full" />
+      <div className="grid grid-cols-1 gap-6 px-10 md:grid-cols-3 lg:grid-cols-4 relative max-w-8xl mx-auto mt-12 ">
         {dishes.map((dish) => (
           <div
             key={dish.idMeal}
@@ -76,6 +76,8 @@ export default function HomeDishes() {
                 src={dish.strMealThumb}
                 alt={dish.strMeal}
                 className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-300"
+                width={100}
+                height={"16rem"}
               />
               <div className="absolute bottom-4 right-4 flex gap-2">
               <button

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <div className="lg:px-48">
+      <div className="lg:px-52">
         <MenuSection />
         <HomeDishes />
       </div>
